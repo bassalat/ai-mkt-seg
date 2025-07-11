@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "app/api/segmentation/route.ts": {
+      "maxDuration": 300
+    }
+  }
+}

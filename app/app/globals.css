@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .gradient-primary {
+    background: linear-gradient(135deg, #843dff 0%, #7916ff 100%);
+  }
+  
+  .gradient-secondary {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, #843dff 0%, #7916ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
+  
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(#fff, #fff) padding-box,
+                linear-gradient(135deg, #843dff 0%, #7916ff 100%) border-box;
+    border: 2px solid transparent;
+  }
+}
