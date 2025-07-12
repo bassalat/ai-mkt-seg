@@ -836,24 +836,22 @@ Keep it simple - focus on key attributes only.`;
           count: 10000 * segNum,
           growthRate: "10%"
         },
-        characteristics: productInput.businessType === 'b2b' ? {
-          firmographics: {
-            companySizes: ["50-500 employees"],
-            industries: ["Various"],
-            budgetRange: "$10K-$50K"
-          },
+        characteristics: {
+          ...(productInput.businessType === 'b2b' ? {
+            firmographics: {
+              companySizes: ["50-500 employees"],
+              industries: ["Various"],
+              budgetRange: "$10K-$50K"
+            }
+          } : {
+            demographics: {
+              ageRange: "25-55",
+              income: "$40K-$80K",
+              lifestyle: "Varied"
+            }
+          }),
           behavioral: {
-            buyingProcess: "Standard evaluation",
-            innovationAdoption: "mainstream"
-          }
-        } : {
-          demographics: {
-            ageRange: "25-55",
-            income: "$40K-$80K",
-            lifestyle: "Varied"
-          },
-          behavioral: {
-            buyingProcess: "Price comparison",
+            buyingProcess: productInput.businessType === 'b2b' ? "Standard evaluation" : "Price comparison",
             innovationAdoption: "mainstream"
           }
         },
