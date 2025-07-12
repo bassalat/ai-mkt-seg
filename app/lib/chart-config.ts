@@ -62,7 +62,7 @@ export const priorityMatrixOptions: ChartOptions<'scatter'> = {
       min: 0,
       max: 100,
       grid: {
-        drawBorder: false,
+        display: true,
       },
     },
     y: {
@@ -77,7 +77,7 @@ export const priorityMatrixOptions: ChartOptions<'scatter'> = {
       min: 0,
       max: 100,
       grid: {
-        drawBorder: false,
+        display: true,
       },
     },
   },
