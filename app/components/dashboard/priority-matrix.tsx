@@ -76,7 +76,7 @@ export function PriorityMatrix({ segments }: PriorityMatrixProps) {
   const data = {
     datasets: [{
       label: 'Segments',
-      data: segments.map((segment, index) => {
+      data: segments.map((segment) => {
         const x = segment.priorityScore?.marketAttractiveness || 50;
         const y = segment.priorityScore?.accessibility || 50;
         return { 

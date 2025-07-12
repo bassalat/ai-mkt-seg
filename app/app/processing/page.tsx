@@ -186,10 +186,10 @@ export default function ProcessingPage() {
         }
 
         result = await response.json();
-      } catch (err: any) {
+      } catch (err) {
         eventSource.close();
         
-        if (err.name === 'AbortError') {
+        if (err instanceof Error && err.name === 'AbortError') {
           throw new Error('Analysis is taking longer than expected. This usually happens with complex markets. Please try again with a simpler query.');
         }
         throw err;

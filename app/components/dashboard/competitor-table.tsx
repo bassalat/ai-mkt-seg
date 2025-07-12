@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Building2, DollarSign, Users, Globe, Trophy, TrendingUp, Package, ChevronDown, ChevronUp } from 'lucide-react';
+import { DollarSign, Users, Globe, Trophy, TrendingUp, Package, ChevronDown, ChevronUp } from 'lucide-react';
 import { Competitor } from '@/types';
 
 interface CompetitorTableProps {
