@@ -737,7 +737,9 @@ Keep it simple - focus on key attributes only.`;
         useCases: [
           {
             scenario: "Enterprise-wide deployment",
-            outcome: "Unified productivity platform"
+            workflow: "Phased rollout across departments",
+            valueDelivered: "Unified productivity platform",
+            implementationTime: "3-6 months"
           }
         ],
         buyingTriggers: {
@@ -787,7 +789,9 @@ Keep it simple - focus on key attributes only.`;
         useCases: [
           {
             scenario: "Team collaboration at scale",
-            outcome: "Streamlined workflows"
+            workflow: "Quick setup and onboarding",
+            valueDelivered: "Streamlined workflows",
+            implementationTime: "1-2 weeks"
           }
         ],
         buyingTriggers: {
@@ -838,7 +842,9 @@ Keep it simple - focus on key attributes only.`;
         useCases: [
           {
             scenario: "Personal productivity management",
-            outcome: "Simplified digital life"
+            workflow: "Self-service setup",
+            valueDelivered: "Simplified digital life",
+            implementationTime: "Same day"
           }
         ],
         buyingTriggers: {
@@ -921,7 +927,9 @@ Keep it simple - focus on key attributes only.`;
         useCases: [
           {
             scenario: "Daily workflow management",
-            outcome: "Improved efficiency"
+            workflow: "Standard implementation",
+            valueDelivered: "Improved efficiency",
+            implementationTime: "1 week"
           }
         ],
         buyingTriggers: {
