@@ -211,7 +211,7 @@ export class SerperService {
     const totalQueries = queries.length;
     
     for (const [platform, platformQueries] of Object.entries(queriesByPlatform)) {
-      const defaultLimits = this.platformLimits[platform] || this.platformLimits.generic;
+      const defaultLimits = this.platformLimits[platform as keyof typeof this.platformLimits] || this.platformLimits.generic;
       const limits = isQuickModeEnabled() 
         ? { batchSize: QUICK_MODE_CONFIG.batchSize, delay: 500 }
         : defaultLimits;
@@ -325,8 +325,8 @@ export class SerperService {
     // Sort platforms by priority
     const sortedPlatforms = Object.entries(organized)
       .sort(([a], [b]) => {
-        const priorityA = this.platformLimits[a]?.priority || 999;
-        const priorityB = this.platformLimits[b]?.priority || 999;
+        const priorityA = this.platformLimits[a as keyof typeof this.platformLimits]?.priority || 999;
+        const priorityB = this.platformLimits[b as keyof typeof this.platformLimits]?.priority || 999;
         return priorityA - priorityB;
       });
     
