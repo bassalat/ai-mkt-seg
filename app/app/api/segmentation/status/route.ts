@@ -1,8 +1,7 @@
 import { NextRequest } from 'next/server';
 import { costTracker } from '@/services/cost-tracker.service';
 
-import { ProcessingStatus } from '@/types';
-import { statusUpdates, costUpdates } from '@/lib/status-store';
+import { statusUpdates } from '@/lib/status-store';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;

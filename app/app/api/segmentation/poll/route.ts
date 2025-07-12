@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { activeJobs } from '../start/route';
+import { activeJobs } from '@/lib/status-store';
 import { costTracker } from '@/services/cost-tracker.service';
 
 export async function GET(request: NextRequest) {
