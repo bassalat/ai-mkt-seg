@@ -751,7 +751,12 @@ Keep it simple - focus on key attributes only.`;
           primary: "Scale your productivity enterprise-wide",
           supporting: ["Reduce tool sprawl", "Increase collaboration"]
         },
-        channelPreferences: ["direct sales", "webinars", "analyst reports"],
+        channelPreferences: {
+          discovery: ["analyst reports", "conferences"],
+          research: ["vendor websites", "peer reviews"],
+          engagement: ["direct sales", "webinars"],
+          purchase: ["direct sales", "partner channels"]
+        },
         priorityScore: {
           marketAttractiveness: 85,
           accessibility: 65
@@ -803,7 +808,12 @@ Keep it simple - focus on key attributes only.`;
           primary: "Built for fast-growing teams",
           supporting: ["Quick implementation", "Scales with you"]
         },
-        channelPreferences: ["search", "content marketing", "peer reviews"],
+        channelPreferences: {
+          discovery: ["search", "content marketing"],
+          research: ["peer reviews", "comparison sites"],
+          engagement: ["free trial", "demos"],
+          purchase: ["self-service", "inside sales"]
+        },
         priorityScore: {
           marketAttractiveness: 90,
           accessibility: 80
@@ -856,7 +866,12 @@ Keep it simple - focus on key attributes only.`;
           primary: "One tool to rule them all",
           supporting: ["Save money", "Save time", "Reduce complexity"]
         },
-        channelPreferences: ["social media", "app stores", "influencer reviews"],
+        channelPreferences: {
+          discovery: ["social media", "influencer reviews"],
+          research: ["app stores", "review sites"],
+          engagement: ["free trial", "freemium"],
+          purchase: ["app stores", "website"]
+        },
         priorityScore: {
           marketAttractiveness: 85,
           accessibility: 90
@@ -941,7 +956,12 @@ Keep it simple - focus on key attributes only.`;
           primary: "Simplify your workflow",
           supporting: ["Save time", "Increase productivity"]
         },
-        channelPreferences: ["email", "search"],
+        channelPreferences: {
+          discovery: ["search", "email marketing"],
+          research: ["vendor websites", "case studies"],
+          engagement: ["email", "webinars"],
+          purchase: ["online", "phone sales"]
+        },
         priorityScore: {
           marketAttractiveness: 70 - (i * 5),
           accessibility: 75 - (i * 5)
