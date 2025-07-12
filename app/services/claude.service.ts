@@ -729,9 +729,27 @@ Keep it simple - focus on key attributes only.`;
           {
             pain: "Scaling productivity across large teams",
             severity: "high",
-            currentSolution: "Mix of legacy tools"
+            currentSolution: "Mix of legacy tools",
+            costOfProblem: "$100K-$500K annually"
           }
         ],
+        roleSpecificPainPoints: {},
+        useCases: [
+          {
+            scenario: "Enterprise-wide deployment",
+            outcome: "Unified productivity platform"
+          }
+        ],
+        buyingTriggers: {
+          external: ["Digital transformation mandates"],
+          internal: ["M&A integration needs"],
+          urgencyLevel: "3-6months"
+        },
+        messagingHooks: {
+          primary: "Scale your productivity enterprise-wide",
+          supporting: ["Reduce tool sprawl", "Increase collaboration"]
+        },
+        channelPreferences: ["direct sales", "webinars", "analyst reports"],
         priorityScore: {
           marketAttractiveness: 85,
           accessibility: 65
@@ -761,9 +779,27 @@ Keep it simple - focus on key attributes only.`;
           {
             pain: "Rapid team growth causing process chaos",
             severity: "critical",
-            currentSolution: "Spreadsheets and basic tools"
+            currentSolution: "Spreadsheets and basic tools",
+            costOfProblem: "$50K-$200K annually"
           }
         ],
+        roleSpecificPainPoints: {},
+        useCases: [
+          {
+            scenario: "Team collaboration at scale",
+            outcome: "Streamlined workflows"
+          }
+        ],
+        buyingTriggers: {
+          external: ["Competitive pressure"],
+          internal: ["Hiring spree", "Process breakdowns"],
+          urgencyLevel: "immediate"
+        },
+        messagingHooks: {
+          primary: "Built for fast-growing teams",
+          supporting: ["Quick implementation", "Scales with you"]
+        },
+        channelPreferences: ["search", "content marketing", "peer reviews"],
         priorityScore: {
           marketAttractiveness: 90,
           accessibility: 80
@@ -794,9 +830,27 @@ Keep it simple - focus on key attributes only.`;
           {
             pain: "Too many tools, not enough integration",
             severity: "high",
-            currentSolution: "Multiple subscriptions"
+            currentSolution: "Multiple subscriptions",
+            costOfProblem: "$2K-$10K annually"
           }
         ],
+        roleSpecificPainPoints: {},
+        useCases: [
+          {
+            scenario: "Personal productivity management",
+            outcome: "Simplified digital life"
+          }
+        ],
+        buyingTriggers: {
+          external: ["New job", "Life changes"],
+          internal: ["Overwhelm", "Tool fatigue"],
+          urgencyLevel: "3-6months"
+        },
+        messagingHooks: {
+          primary: "One tool to rule them all",
+          supporting: ["Save money", "Save time", "Reduce complexity"]
+        },
+        channelPreferences: ["social media", "app stores", "influencer reviews"],
         priorityScore: {
           marketAttractiveness: 85,
           accessibility: 90
@@ -859,7 +913,8 @@ Keep it simple - focus on key attributes only.`;
           {
             pain: "Generic productivity challenges",
             severity: "medium",
-            currentSolution: "Basic tools"
+            currentSolution: "Basic tools",
+            costOfProblem: "$5K-$20K annually"
           }
         ],
         roleSpecificPainPoints: {},
