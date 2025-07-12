@@ -77,22 +77,24 @@ Return ONLY the JSON object, no explanations or markdown.`;
         })();
         
         const pdfText = await new Promise<string>((resolve, reject) => {
-        pdfParser.on('pdfParser_dataError', (errData: { parserError: Error }) => {
-          reject(errData.parserError);
+        pdfParser.on('pdfParser_dataError', (errData: unknown) => {
+          const error = errData as { parserError: Error };
+          reject(error.parserError);
         });
         
-        pdfParser.on('pdfParser_dataReady', (pdfData: {
-          Pages?: Array<{
-            Texts?: Array<{
-              R?: Array<{ T?: string }>;
-            }>;
-          }>;
-        }) => {
+        pdfParser.on('pdfParser_dataReady', (pdfData: unknown) => {
           try {
             // Extract text from all pages
             let text = '';
-            if (pdfData.Pages) {
-              pdfData.Pages.forEach((page) => {
+            const data = pdfData as {
+              Pages?: Array<{
+                Texts?: Array<{
+                  R?: Array<{ T?: string }>;
+                }>;
+              }>;
+            };
+            if (data.Pages) {
+              data.Pages.forEach((page) => {
                 if (page.Texts) {
                   page.Texts.forEach((textItem) => {
                     if (textItem.R) {
