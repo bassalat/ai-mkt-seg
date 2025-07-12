@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   table: {
-    display: 'table',
     width: 'auto',
     borderStyle: 'solid',
     borderWidth: 1,
