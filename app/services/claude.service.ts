@@ -827,7 +827,7 @@ Keep it simple - focus on key attributes only.`;
       const remainingPercentage = 100 - baseSegments.reduce((sum, seg) => sum + seg.size.percentage, 0);
       const segPercentage = Math.floor(remainingPercentage / (additionalSegmentCount - i));
       
-      baseSegments.push({
+      const segment: Segment = {
         id: `SEG_${String(segNum).padStart(3, '0')}`,
         name: additionalSegmentNames[i] || `Market Segment ${segNum}`,
         size: {
@@ -862,11 +862,30 @@ Keep it simple - focus on key attributes only.`;
             currentSolution: "Basic tools"
           }
         ],
+        roleSpecificPainPoints: {},
+        useCases: [
+          {
+            scenario: "Daily workflow management",
+            outcome: "Improved efficiency"
+          }
+        ],
+        buyingTriggers: {
+          external: ["Market pressure"],
+          internal: ["Team growth"],
+          urgencyLevel: "6-12months"
+        },
+        messagingHooks: {
+          primary: "Simplify your workflow",
+          supporting: ["Save time", "Increase productivity"]
+        },
+        channelPreferences: ["email", "search"],
         priorityScore: {
           marketAttractiveness: 70 - (i * 5),
           accessibility: 75 - (i * 5)
         }
-      });
+      };
+      
+      baseSegments.push(segment);
     }
 
     return baseSegments;
