@@ -704,7 +704,7 @@ Keep it simple - focus on key attributes only.`;
   }
 
   private generateFallbackSegments(productInput: ProductInput, marketAnalysis: MarketAnalysis): Segment[] {
-    const baseSegments = productInput.businessType === 'b2b' ? [
+    const baseSegments: Segment[] = productInput.businessType === 'b2b' ? [
       {
         id: "SEG_001",
         name: "Enterprise Innovators",
