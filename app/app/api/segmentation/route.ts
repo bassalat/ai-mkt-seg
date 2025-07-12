@@ -196,7 +196,7 @@ export async function POST(request: NextRequest) {
     console.error('=== SEGMENTATION ERROR ===');
     console.error('Error object:', error);
     console.error('Error type:', typeof error);
-    console.error('Error constructor:', (error as any)?.constructor?.name);
+    console.error('Error constructor:', error && typeof error === 'object' && 'constructor' in error ? error.constructor.name : 'Unknown');
     console.error('Error message:', error instanceof Error ? error.message : String(error));
     console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
     console.error('Stringified error:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
