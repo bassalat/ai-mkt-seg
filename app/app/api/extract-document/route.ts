@@ -70,23 +70,33 @@ Return ONLY the JSON object, no explanations or markdown.`;
         const buffer = Buffer.from(arrayBuffer);
         
         // Extract text from PDF
-        const pdfParser = new (PDFParser as any)();
+        // Type assertion for pdf2json which lacks TypeScript definitions
+        const pdfParser = new (PDFParser as unknown as new () => {
+          parseBuffer: (buffer: Buffer) => void;
+          on: (event: string, callback: (data: unknown) => void) => void;
+        })();
         
         const pdfText = await new Promise<string>((resolve, reject) => {
-        pdfParser.on('pdfParser_dataError', (errData: any) => {
+        pdfParser.on('pdfParser_dataError', (errData: { parserError: Error }) => {
           reject(errData.parserError);
         });
         
-        pdfParser.on('pdfParser_dataReady', (pdfData: any) => {
+        pdfParser.on('pdfParser_dataReady', (pdfData: {
+          Pages?: Array<{
+            Texts?: Array<{
+              R?: Array<{ T?: string }>;
+            }>;
+          }>;
+        }) => {
           try {
             // Extract text from all pages
             let text = '';
             if (pdfData.Pages) {
-              pdfData.Pages.forEach((page: any) => {
+              pdfData.Pages.forEach((page) => {
                 if (page.Texts) {
-                  page.Texts.forEach((textItem: any) => {
+                  page.Texts.forEach((textItem) => {
                     if (textItem.R) {
-                      textItem.R.forEach((r: any) => {
+                      textItem.R.forEach((r) => {
                         if (r.T) {
                           // Decode URI component to get actual text
                           text += decodeURIComponent(r.T) + ' ';
@@ -160,13 +170,13 @@ Return ONLY the JSON object, no explanations or markdown.`;
     let extractedData;
     try {
       extractedData = JSON.parse(responseText);
-    } catch (parseError) {
+    } catch {
       console.error('Failed to parse Claude response:', responseText);
       throw new Error('Failed to parse extracted information');
     }
     
     // Validate and clean the data
-    const cleanedData: any = {};
+    const cleanedData: Record<string, unknown> = {};
     
     // Process each field
     if (extractedData.businessType) cleanedData.businessType = extractedData.businessType;

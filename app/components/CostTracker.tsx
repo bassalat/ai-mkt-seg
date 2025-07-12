@@ -36,7 +36,7 @@ export default function CostTracker({ costs, isMinimized = false }: CostTrackerP
 
       return () => clearInterval(timer);
     }
-  }, [costs?.totalCost]);
+  }, [costs?.totalCost, animatedTotal]);
 
   if (!costs) return null;
 

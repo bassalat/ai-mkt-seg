@@ -9,17 +9,7 @@ interface SegmentCardProps {
   index: number;
 }
 
-export function SegmentCard({ segment, index }: SegmentCardProps) {
-  const urgencyColors = {
-    'immediate': 'bg-red-100 text-red-700',
-    '3-6months': 'bg-orange-100 text-orange-700',
-    '6-12months': 'bg-yellow-100 text-yellow-700',
-    '12+months': 'bg-gray-100 text-gray-700',
-    // Fallback for old format
-    low: 'bg-gray-100 text-gray-700',
-    medium: 'bg-yellow-100 text-yellow-700',
-    high: 'bg-red-100 text-red-700',
-  };
+export function SegmentCard({ segment }: SegmentCardProps) {
 
   return (
     <Card className="hover:shadow-lg transition-shadow">
@@ -92,7 +82,7 @@ export function SegmentCard({ segment, index }: SegmentCardProps) {
               Key Message
             </p>
             <p className="text-sm text-primary-600 font-medium italic">
-              "{segment.messagingHooks.primary}"
+              &quot;{segment.messagingHooks.primary}&quot;
             </p>
           </div>
         )}

@@ -188,7 +188,7 @@ export default function QuestionnairePage() {
 
       // Fill in the extracted data
       Object.entries(extractedData).forEach(([key, value]) => {
-        setValue(key as keyof ProductInputData, value as any);
+        setValue(key as keyof ProductInputData, value as Parameters<typeof setValue>[1]);
       });
 
       // Navigate to appropriate step based on extracted data
@@ -285,7 +285,7 @@ export default function QuestionnairePage() {
             {currentStep === 'business-type' && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Let's start with your business type</CardTitle>
+                  <CardTitle>Let&apos;s start with your business type</CardTitle>
                   <CardDescription>
                     This helps us tailor the segmentation to your specific market
                   </CardDescription>
@@ -342,7 +342,7 @@ export default function QuestionnairePage() {
                 <CardHeader>
                   <CardTitle>Tell us about your product</CardTitle>
                   <CardDescription>
-                    Help us understand what you're building
+                    Help us understand what you&apos;re building
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">

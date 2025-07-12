@@ -2,8 +2,10 @@ import { NextRequest } from 'next/server';
 import { costTracker } from '@/services/cost-tracker.service';
 
 // Store status updates in memory (in production, use Redis or similar)
-export const statusUpdates = new Map<string, any>();
-export const costUpdates = new Map<string, any>();
+import { ProcessingStatus } from '@/types';
+
+export const statusUpdates = new Map<string, ProcessingStatus>();
+export const costUpdates = new Map<string, { claude: number; serper: number; total: number }>();
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;

@@ -292,7 +292,7 @@ export const SegmentationPDF = ({ result }: { result: SegmentationResult }) => (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Messaging</Text>
             <Text style={[styles.text, { fontStyle: 'italic', marginBottom: 10 }]}>
-              "{segment.messagingHooks?.primary || 'Key value proposition for this segment'}"
+              &quot;{segment.messagingHooks?.primary || 'Key value proposition for this segment'}&quot;
             </Text>
             {segment.messagingHooks?.supporting && (
               <>
@@ -351,7 +351,7 @@ export const PDFExportButton = ({ result, children }: { result: SegmentationResu
       document={<SegmentationPDF result={result} />}
       fileName={fileName}
     >
-      {({ blob, url, loading, error }) => 
+      {({ loading }) => 
         loading ? 'Preparing PDF...' : children
       }
     </PDFDownloadLink>

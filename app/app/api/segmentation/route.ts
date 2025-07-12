@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
       console.log('[API] Segment identification completed successfully, found', segments?.length, 'segments');
       
       // Check if any segments are marked as fallback
-      if (segments && segments.some((seg: any) => seg.isFallback)) {
+      if (segments && segments.some((seg) => 'isFallback' in seg && seg.isFallback)) {
         usingFallback = true;
         console.warn('[API] Using fallback segments due to API issues');
       }
@@ -192,7 +192,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(result);
-  } catch (error: any) {
+  } catch (error) {
     console.error('=== SEGMENTATION ERROR ===');
     console.error('Error object:', error);
     console.error('Error type:', typeof error);

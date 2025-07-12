@@ -103,10 +103,10 @@ export default function ResultsPage() {
         </div>
 
         {/* Warning if using fallback data */}
-        {(result as any).warnings && (
+        {'warnings' in result && Array.isArray((result as { warnings?: string[] }).warnings) && (
           <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
             <p className="text-yellow-800 text-sm">
-              <strong>Note:</strong> {(result as any).warnings[0]}
+              <strong>Note:</strong> {(result as { warnings?: string[] }).warnings?.[0]}
             </p>
           </div>
         )}
@@ -118,7 +118,7 @@ export default function ResultsPage() {
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${
                   activeTab === tab.id
                     ? 'gradient-primary text-white'
@@ -211,7 +211,7 @@ export default function ResultsPage() {
                 {result.segments.length > 6 && (
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                     <p className="text-sm text-blue-800">
-                      <strong>Complex Market:</strong> We've identified {result.segments.length} distinct segments based on high market complexity, 
+                      <strong>Complex Market:</strong> We&apos;ve identified {result.segments.length} distinct segments based on high market complexity, 
                       {result.marketAnalysis.competitors.length} competitors, and diverse use cases. Each segment represents a unique go-to-market opportunity.
                     </p>
                   </div>
@@ -239,7 +239,7 @@ export default function ResultsPage() {
               {result.personas.length > result.segments.length * 2 && (
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                   <p className="text-sm text-blue-800">
-                    <strong>Rich Persona Mapping:</strong> We've developed {Math.round(result.personas.length / result.segments.length)} personas per segment 
+                    <strong>Rich Persona Mapping:</strong> We&apos;ve developed {Math.round(result.personas.length / result.segments.length)} personas per segment 
                     to represent the full buying committee, including Economic Buyers, Technical Buyers, User Champions, and Executive Sponsors.
                   </p>
                 </div>
@@ -304,7 +304,7 @@ export default function ResultsPage() {
                                 <div>
                                   <p className="text-sm font-medium mb-2">Primary Job to be Done</p>
                                   <p className="text-sm text-gray-700 italic">
-                                    "{persona.jobsToBeDone.functional[0]}"
+                                    &quot;{persona.jobsToBeDone.functional[0]}&quot;
                                   </p>
                                 </div>
                               )}

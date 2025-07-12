@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { ProcessingStatus, ProcessingPhase } from '@/types';
@@ -15,13 +15,10 @@ import {
   Lightbulb, 
   Rocket, 
   FileText,
-  Globe,
-  TrendingUp,
-  Target,
   Sparkles
 } from 'lucide-react';
 
-const PHASE_ICONS: Record<ProcessingPhase, any> = {
+const PHASE_ICONS: Record<ProcessingPhase, React.ComponentType<{ className?: string }>> = {
   'collecting-input': FileText,
   'market-research': Search,
   'market-analysis': Brain,
@@ -73,7 +70,6 @@ export default function ProcessingPage() {
     progress: 0,
   });
   const [error, setError] = useState<string | null>(null);
-  const [searchedQueries, setSearchedQueries] = useState<string[]>([]);
   const [currentPlatform, setCurrentPlatform] = useState<string>('');
   const [searchStats, setSearchStats] = useState({ completed: 0, total: 0 });
   const [costs, setCosts] = useState<CostSummary | undefined>();
@@ -88,9 +84,9 @@ export default function ProcessingPage() {
         eventSourceRef.current.close();
       }
     };
-  }, []);
+  }, [startProcessing]);
 
-  const startProcessing = async () => {
+  const startProcessing = useCallback(async () => {
     try {
       // Get product input from session storage
       const productInputStr = sessionStorage.getItem('productInput');
@@ -237,7 +233,7 @@ export default function ProcessingPage() {
       
       setError(errorMessage);
     }
-  };
+  }, [router, sessionId]);
 
   const getPhaseStatus = (phase: ProcessingPhase) => {
     const phases: ProcessingPhase[] = [
@@ -256,11 +252,6 @@ export default function ProcessingPage() {
     if (phaseIndex < currentIndex) return 'completed';
     if (phaseIndex === currentIndex) return 'active';
     return 'pending';
-  };
-
-  const getCurrentPhaseIcon = () => {
-    const Icon = PHASE_ICONS[status.phase];
-    return Icon || Search;
   };
 
   const renderPhaseContent = () => {
@@ -418,7 +409,7 @@ export default function ProcessingPage() {
                   <strong>💡 Tip:</strong> {
                     error.includes('overloaded') 
                       ? 'Claude AI servers are experiencing high demand. This is temporary - please wait 2-3 minutes and try again. The system will automatically retry with exponential backoff.'
-                      : 'We\'ve implemented automatic retry with rate limiting. The system will wait and retry automatically. You can also wait 2-3 minutes before trying again to ensure the rate limit has reset.'
+                      : 'We&apos;ve implemented automatic retry with rate limiting. The system will wait and retry automatically. You can also wait 2-3 minutes before trying again to ensure the rate limit has reset.'
                   }
                 </p>
               </div>
@@ -511,7 +502,7 @@ export default function ProcessingPage() {
                   Did you know?
                 </h3>
                 <p className="text-sm text-gray-700">
-                  We're analyzing {searchStats.total || '250+'} sources across {SEARCH_PLATFORMS.length} platforms. 
+                  We&apos;re analyzing {searchStats.total || '250+'} sources across {SEARCH_PLATFORMS.length} platforms. 
                   This deep analysis would take a human analyst 4-6 weeks and cost $50,000+!
                 </p>
               </CardContent>

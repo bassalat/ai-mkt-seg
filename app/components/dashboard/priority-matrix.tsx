@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Scatter } from 'react-chartjs-2';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Segment } from '@/types';
@@ -13,8 +13,7 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartData,
-  BubbleDataPoint,
+  Chart,
 } from 'chart.js';
 
 ChartJS.register(
@@ -111,7 +110,7 @@ export function PriorityMatrix({ segments }: PriorityMatrixProps) {
   // Custom plugin to draw quadrant lines
   const quadrantPlugin = {
     id: 'quadrantLines',
-    afterDraw: (chart: any) => {
+    afterDraw: (chart: Chart<'scatter'>) => {
       const ctx = chart.ctx;
       const xScale = chart.scales.x;
       const yScale = chart.scales.y;
@@ -168,7 +167,7 @@ export function PriorityMatrix({ segments }: PriorityMatrixProps) {
       <CardContent>
         <div className="h-[400px]">
           <Scatter 
-            ref={chartRef as any}
+            ref={chartRef as React.RefObject<ChartJS<'scatter', { x: number; y: number }[], unknown>>}
             options={dynamicOptions} 
             data={data} 
             plugins={[quadrantPlugin]}

@@ -5,7 +5,7 @@ import { costTracker } from '@/services/cost-tracker.service';
 // Store active jobs in memory (in production, use Redis or a database)
 export const activeJobs = new Map<string, {
   status: 'processing' | 'completed' | 'error';
-  result?: any;
+  result?: unknown;
   error?: string;
   startedAt: Date;
 }>();

@@ -38,7 +38,7 @@ export const priorityMatrixOptions: ChartOptions<'scatter'> = {
           const point = context.raw as BubbleDataPoint & { label?: string; };
           const dataset = context.dataset;
           const dataIndex = context.dataIndex;
-          const dataPoint = dataset.data[dataIndex] as any;
+          const dataPoint = dataset.data[dataIndex] as BubbleDataPoint & { label?: string };
           return [
             dataPoint.label || 'Segment',
             `Market Attractiveness: ${point.x}`,
