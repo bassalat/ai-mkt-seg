@@ -1,14 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ProductInput } from '@/types';
 import { costTracker } from '@/services/cost-tracker.service';
-
-// Store active jobs in memory (in production, use Redis or a database)
-export const activeJobs = new Map<string, {
-  status: 'processing' | 'completed' | 'error';
-  result?: unknown;
-  error?: string;
-  startedAt: Date;
-}>();
+import { activeJobs } from '@/lib/status-store';
 
 export async function POST(request: NextRequest) {
   try {

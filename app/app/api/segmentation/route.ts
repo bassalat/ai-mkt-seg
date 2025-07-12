@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { claudeService } from '@/services/claude.service';
 import { serperService } from '@/services/serper.service';
 import { ProductInput, ProcessingStatus, SegmentationResult } from '@/types';
-import { statusUpdates } from './status/route';
+import { statusUpdates } from '@/lib/status-store';
 import { costTracker } from '@/services/cost-tracker.service';
 import { isQuickModeEnabled, getQuickModeMessage } from '@/services/serper.service.quickmode';
 
