@@ -76,16 +76,6 @@ export default function ProcessingPage() {
   const [sessionId] = useState(() => Math.random().toString(36).substring(7));
   const eventSourceRef = useRef<EventSource | null>(null);
 
-  useEffect(() => {
-    startProcessing();
-    
-    return () => {
-      if (eventSourceRef.current) {
-        eventSourceRef.current.close();
-      }
-    };
-  }, [startProcessing]);
-
   const startProcessing = useCallback(async () => {
     try {
       // Get product input from session storage
@@ -234,6 +224,16 @@ export default function ProcessingPage() {
       setError(errorMessage);
     }
   }, [router, sessionId]);
+
+  useEffect(() => {
+    startProcessing();
+    
+    return () => {
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+      }
+    };
+  }, [startProcessing]);
 
   const getPhaseStatus = (phase: ProcessingPhase) => {
     const phases: ProcessingPhase[] = [
