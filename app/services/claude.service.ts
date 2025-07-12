@@ -146,6 +146,7 @@ CRITICAL RULES:
           { name: 'twitter', weight: 10 },
           { name: 'producthunt', weight: 5 }
         ],
+        reasoning: 'Using default platform strategy due to parsing error',
         queryVolume: 250
       };
     }
