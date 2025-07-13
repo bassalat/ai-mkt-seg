@@ -1,0 +1,86 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Testing
+coverage
+.nyc_output
+
+# Next.js build output
+.next
+out
+build
+dist
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.production.example
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+*.swn
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+tmp
+temp
+.cache
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+docs
+CLAUDE.md
+chat_log.md
+PRD.md
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Development files
+.eslintrc*
+.prettierrc*
+jest.config.*
+tsconfig.tsbuildinfo
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+__tests__
+__mocks__
+
+# Misc
+.vercel
+.turbo
+scripts/setup-*.sh
+scripts/check-*.sh
+scripts/initial-*.sh

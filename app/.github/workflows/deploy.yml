@@ -1,0 +1,98 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  DOCKER_IMAGE_NAME: ai-market-seg
+  DOCKER_CONTAINER_NAME: ai-market-seg-app
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker image
+      run: |
+        docker build -t ${{ env.DOCKER_IMAGE_NAME }}:latest .
+        docker save ${{ env.DOCKER_IMAGE_NAME }}:latest | gzip > image.tar.gz
+
+    - name: Copy image to VPS
+      uses: appleboy/scp-action@v0.1.5
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT || 22 }}
+        source: "image.tar.gz,docker-compose.yml"
+        target: "/tmp/ai-market-seg-deploy"
+
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT || 22 }}
+        script: |
+          # Load the Docker image
+          cd /tmp/ai-market-seg-deploy
+          gunzip -c image.tar.gz | docker load
+          
+          # Create app directory if it doesn't exist
+          mkdir -p ~/apps/ai-market-seg
+          
+          # Copy docker-compose.yml to app directory
+          cp docker-compose.yml ~/apps/ai-market-seg/
+          
+          # Navigate to app directory
+          cd ~/apps/ai-market-seg
+          
+          # Check if .env.production exists
+          if [ ! -f .env.production ]; then
+            echo "ERROR: .env.production file not found!"
+            echo "Please create .env.production with your API keys"
+            exit 1
+          fi
+          
+          # Stop existing container (if any)
+          docker-compose down || true
+          
+          # Start new container
+          docker-compose up -d
+          
+          # Wait for container to be healthy
+          echo "Waiting for container to be healthy..."
+          for i in {1..30}; do
+            if docker-compose ps | grep -q "healthy"; then
+              echo "Container is healthy!"
+              break
+            fi
+            if [ $i -eq 30 ]; then
+              echo "Container failed to become healthy"
+              docker-compose logs
+              exit 1
+            fi
+            sleep 2
+          done
+          
+          # Clean up deployment files
+          rm -rf /tmp/ai-market-seg-deploy
+          
+          # Show final status
+          docker-compose ps
+          echo "Deployment completed successfully!"
+          echo "Application is running on http://${{ secrets.VPS_HOST }}:8080"
+
+    - name: Cleanup local files
+      if: always()
+      run: rm -f image.tar.gz
