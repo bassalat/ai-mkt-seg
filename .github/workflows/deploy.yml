@@ -76,23 +76,52 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT || 22 }}
         script: |
+          # Debug: Check what was copied
+          echo "=== Checking deployment files ==="
+          ls -la /tmp/ai-market-seg-deploy/
+          
           # Load the Docker image
           cd /tmp/ai-market-seg-deploy
+          
+          # Debug: Check current directory
+          echo "=== Current directory contents ==="
+          pwd
+          ls -la
+          
+          # Extract if we're in the app subdirectory
+          if [ -d "app" ]; then
+            echo "Found app directory, entering it"
+            cd app
+            ls -la
+          fi
+          
+          echo "=== Loading Docker image ==="
           gunzip -c image.tar.gz | docker load
           
           # Create app directory if it doesn't exist
           mkdir -p ~/apps/ai-market-seg
           
           # Copy docker-compose.yml to app directory
+          echo "=== Copying docker-compose.yml ==="
           cp docker-compose.yml ~/apps/ai-market-seg/
           
           # Navigate to app directory
           cd ~/apps/ai-market-seg
           
+          echo "=== App directory contents ==="
+          pwd
+          ls -la
+          
           # Check if .env.production exists
           if [ ! -f .env.production ]; then
             echo "ERROR: .env.production file not found!"
             echo "Please create .env.production with your API keys"
+            echo "Run this command on your VPS to create it:"
+            echo "cat > ~/apps/ai-market-seg/.env.production << 'EOF'"
+            echo "ANTHROPIC_API_KEY=your_anthropic_api_key_here"
+            echo "SERPER_API_KEY=your_serper_api_key_here"
+            echo "NODE_ENV=production"
+            echo "EOF"
             exit 1
           fi
           
