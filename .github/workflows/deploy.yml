@@ -30,21 +30,28 @@ jobs:
     - name: Debug secrets
       run: |
         echo "Testing if secrets are available:"
-        echo "VPS_HOST exists: ${{ secrets.VPS_HOST != '' }}"
-        echo "VPS_USER exists: ${{ secrets.VPS_USER != '' }}"
-        echo "VPS_SSH_KEY exists: ${{ secrets.VPS_SSH_KEY != '' }}"
-        echo "VPS_HOST length: ${{ secrets.VPS_HOST != '' && 'set' || 'not set' }}"
+        if [ -z "${{ secrets.VPS_HOST }}" ]; then
+          echo "ERROR: VPS_HOST secret is empty or not set"
+        else
+          echo "SUCCESS: VPS_HOST is set"
+        fi
+        if [ -z "${{ secrets.VPS_USER }}" ]; then
+          echo "ERROR: VPS_USER secret is empty or not set"
+        else
+          echo "SUCCESS: VPS_USER is set"
+        fi
+        if [ -z "${{ secrets.VPS_SSH_KEY }}" ]; then
+          echo "ERROR: VPS_SSH_KEY secret is empty or not set"
+        else
+          echo "SUCCESS: VPS_SSH_KEY is set"
+        fi
 
     - name: Test SSH connection
       uses: appleboy/ssh-action@v1.0.0
-      env:
-        SSH_HOST: ${{ secrets.VPS_HOST }}
-        SSH_USER: ${{ secrets.VPS_USER }}
-        SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
       with:
-        host: ${{ env.SSH_HOST }}
-        username: ${{ env.SSH_USER }}
-        key: ${{ env.SSH_KEY }}
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
         port: 22
         script: |
           echo "SSH connection successful!"
