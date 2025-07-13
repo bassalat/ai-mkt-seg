@@ -23,6 +23,7 @@ jobs:
 
     - name: Build Docker image
       run: |
+        cd app
         docker build -t ${{ env.DOCKER_IMAGE_NAME }}:latest .
         docker save ${{ env.DOCKER_IMAGE_NAME }}:latest | gzip > image.tar.gz
 
@@ -33,7 +34,7 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT || 22 }}
-        source: "image.tar.gz,docker-compose.yml"
+        source: "app/image.tar.gz,app/docker-compose.yml"
         target: "/tmp/ai-market-seg-deploy"
 
     - name: Deploy to VPS
@@ -95,4 +96,4 @@ jobs:
 
     - name: Cleanup local files
       if: always()
-      run: rm -f image.tar.gz
+      run: rm -f app/image.tar.gz
