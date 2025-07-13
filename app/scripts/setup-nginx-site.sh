@@ -13,8 +13,8 @@ APP_NAME="ai-market-seg"
 NGINX_SITE_CONFIG="/etc/nginx/sites-available/$APP_NAME"
 NGINX_SITE_ENABLED="/etc/nginx/sites-enabled/$APP_NAME"
 HTPASSWD_FILE="/etc/nginx/.htpasswd-$APP_NAME"
-APP_PORT="8080"
-DOCKER_PORT="8080"
+APP_PORT="8090"
+DOCKER_PORT="8090"
 
 # Check if running as root or with sudo
 if [ "$EUID" -ne 0 ]; then 

@@ -125,8 +125,15 @@ jobs:
             exit 1
           fi
           
+          # Check what's using port 8080
+          echo "=== Checking port 8080 usage ==="
+          sudo lsof -i :8080 || echo "lsof not available"
+          sudo netstat -tlnp | grep :8080 || echo "netstat output"
+          docker ps --format "table {{.Names}}\t{{.Ports}}" | grep 8080 || echo "No docker containers on 8080"
+          
           # Stop existing container (if any)
           docker-compose down || true
+          docker stop $(docker ps -q --filter "publish=8080") 2>/dev/null || true
           
           # Start new container
           docker-compose up -d
@@ -152,7 +159,7 @@ jobs:
           # Show final status
           docker-compose ps
           echo "Deployment completed successfully!"
-          echo "Application is running on http://${{ secrets.VPS_HOST }}:8080"
+          echo "Application is running on http://${{ secrets.VPS_HOST }}:8090"
 
     - name: Cleanup local files
       if: always()
